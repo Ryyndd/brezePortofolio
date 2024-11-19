@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+.jetbrains-mono{
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+}
+.jetbrains-400{
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 400;
+}
+.martian-mono {
+    font-family: "Martian Mono", monospace;
+}
+  
+body {
+    font-family: "Inter", sans-serif;
+    cursor: none;
+}
+.inter {
+    font-family: "Inter", sans-serif;
+}
+
+.cursor-dot {
+    width: 20px;
+    height: 20px;
+    mix-blend-mode: difference;
+    background: #353535 ;
+    /* background: #1989ff ; */
+   
+}
+
+.cursor-dot::before {
+    content: '';
+    position: absolute;
+    background: #353535 ;
+    width: 50px;
+    height: 50px;
+    opacity: 0.3;
+    transform: translate(-30%, -30%);
+    border-radius: 50%;
+}
+
+
+.cursor-dot, .cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50% ,-50%);
+    border-radius: 50%;
+    z-index: 999;
+    pointer-events: none;
+}
+
+
+.text-custom {
+    position: relative;
+    display: inline-block; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    
+}
+.text-custom::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #101212 ;
+    border-left: 3px solid #1989ff;
+    animation: typing 6s steps(16) infinite;
+}
+
+@keyframes typing {
+    40%, 60% {
+        left: 100%;
+    }
+    100%{
+        left: 0%;
+    }
+    
+}
