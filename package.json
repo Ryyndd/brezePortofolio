@@ -17,6 +17,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "framer-motion": "^11.15.0",
         "particles.js": "^2.0.0"
     }
 }

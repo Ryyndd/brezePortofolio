@@ -23,6 +23,7 @@
         <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     </head>
     <body class="font-sans antialiased">
+        <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <div class="min-h-screen dark:bg-gray-900">
             
 
@@ -111,7 +112,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <a href="<?php echo e(route('blog.index')); ?>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <i class="fi fi-sr-blog-pencil text-xl font-semibold flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="flex-1 ms-3 text-lg whitespace-nowrap">Blog</span>
                     </a>
@@ -119,6 +120,13 @@
 
                 <li>
                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <i class="fi fi-sr-trophy-star text-xl font-semibold flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                        <span class="flex-1 ms-3 text-lg whitespace-nowrap">Achievement</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo e(route('message.index')); ?>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <i class="fi fi-sr-envelope text-xl font-semibold flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="flex-1 ms-3 whitespace-nowrap text-lg">Message</span>
                     </a>
@@ -155,6 +163,28 @@
                 <?php echo e($slot); ?>
 
             </main>
+            
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                function confirmDelete(id) {
+                    Swal.fire({
+                        title: 'Are You Sure?',
+                        text: "This data will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Delete!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`delete-form-${id}`).submit();
+                        }
+                    });
+                }
+            </script>
+            
+        
             
         </div>
   

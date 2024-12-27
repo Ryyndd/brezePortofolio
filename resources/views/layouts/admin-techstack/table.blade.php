@@ -73,12 +73,20 @@
                             {{ Str::limit($data->tech_description,80) }}
                         </td>
                         <td class="px-2 py-4 ">
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('techstack.destroy', $data->tech_slug) }}" method="POST">
+                            {{-- <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('techstack.destroy', $data->tech_slug) }}" method="POST">
                                 <a  href="{{ route('techstack.edit', $data->tech_slug) }}" type="button"  class="font-medium me-3 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
+                            </form> --}}
+                            <form id="delete-form-{{ $data->tech_slug }}" action="{{ route('techstack.destroy', $data->tech_slug) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
                             </form>
+                            <a  href="{{ route('techstack.edit', $data->tech_slug) }}" type="button"  class="font-medium me-3 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <button type="button" onclick="confirmDelete('{{ $data->tech_slug }}')" class="font-medium text-red-600 dark:text-blue-500 hover:underline">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                     @endforeach

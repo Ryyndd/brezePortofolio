@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('pro_source')->nullable();
             $table->text('pro_description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

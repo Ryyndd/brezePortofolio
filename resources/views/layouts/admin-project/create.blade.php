@@ -18,7 +18,6 @@
                             <div class="relative">
                                 <label for="file-upload" class="hover:saturate-0 cursor-pointer">
                                     <img id="image-preview" class="object-cover w-full h-60 rounded-md ">
-                               
                                     <i class="fi fi-sr-add-image text-2xl text-white mix-blend-difference z-10 text-md inset-0 flex items-center justify-center opacity-0 hover:opacity-100 absolute "></i>
                                 </label>
                                 <input type="file" id="file-upload" class="hidden absolute" name="pro_image" accept="image/*">

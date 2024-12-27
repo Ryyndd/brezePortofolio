@@ -10,11 +10,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class ProjectController extends Controller
 {
     public function index(Request $request): View
         {
-       
             $search = $request->input('search');
 
             // Jika ada kata kunci pencarian, filter berdasarkan nama atau deskripsi
@@ -102,7 +103,7 @@ class ProjectController extends Controller
         public function update(Request $request, $pro_slug): RedirectResponse
         {
 
-           
+        
             // Validasi form
             $validatedData = $request->validate([
                 'pro_image'         => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
@@ -166,7 +167,9 @@ class ProjectController extends Controller
             $project->delete();
         
             // Redirect to index with success message
-            return redirect()->route('project.index')->with(['success' => 'Data Berhasil Dihapus!']);
+            Alert::success('Sucessfully!', 'Project deleted successfully');
+            return redirect()->route('project.index');
+            // return redirect()->route('project.index')->with(['success' => 'Data Berhasil Dihapus!']);
         }
         
 

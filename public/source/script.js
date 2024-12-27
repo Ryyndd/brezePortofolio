@@ -1,64 +1,112 @@
+// Cursor animation
 const cursorDot = document.querySelector("[data-cursor-dot]");
 const cursorOutline = document.querySelector("[data-cursor-outline]");
 
-window.addEventListener("mousemove", function(e){
-    const posX = e.clientX;
-    const posY = e.clientY;
+if (cursorDot && cursorOutline) {
+    window.addEventListener("mousemove", function(e) {
+        const posX = e.clientX;
+        const posY = e.clientY;
 
-    // cursorDot.style.left = `${posX}px`;
-    // cursorDot.style.top= `${posY}px`;
+        cursorDot.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 200, fill: "forwards" });
 
-    // cursorOutline.style.left = `${posX}px`;
-    // cursorOutline.style.top = `${posY}px`;
-
-    cursorDot.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, {duration: 500, fill:"forwards"});
-
-    // cursorOutline.style.boxShadow = "0 0 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.8) , 0 0 40px rgba(255, 255, 255, 0.7)";
-});
-
-
-
-var typed = new Typed('.text-typing', {
-    strings: ['JUNIOR DEVELOPER', 'GRAPHIC DESIGNER', 'MOBILE DEVELOPER'],
-    typeSpeed: 200,
-    loop:true,
-    loopCount: Infinity,
-    startDelay: 100,
-    backSpeed: 100,
-  });
-
-// Pilih elemen yang ingin disembunyikan saat di-scroll
-const elementToHide = document.getElementById('onScrol-hide');
-
-let isScrolling;
-
-let opacity = 0;
-
-// Fungsi untuk mengatur animasi fadeIn
-function fadeIn() {
-    elementToHide.style.opacity = opacity;
-    
-    if (opacity < 1) {
-        opacity += 0.01; // Adjust the increment value for faster or slower fade
-        requestAnimationFrame(fadeIn);
-    }
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
 }
 
-// Tambahkan event listener untuk mendeteksi scroll
-window.addEventListener('scroll', function() {
-
-
-    elementToHide.style.display = 'none';
-
-    // Hentikan timeout sebelumnya (jika ada) dan atur timeout baru
-    clearTimeout(isScrolling);
-    
-    // Setelah 1 detik scroll berhenti, elemen akan kembali disembunyikan
-    isScrolling = setTimeout(function() {
-        elementToHide.style.display = 'block';
-        fadeIn()
-    }, 500); // 1000ms = 1 detik
+// Typing animation
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (typeof Typed !== 'undefined') {
+        var typed = new Typed('#typing-text', {
+            strings: ['JUNIOR DEVELOPER', 'GRAPHIC DESIGNER', 'MOBILE DEVELOPER'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: true,
+            loopCount: Infinity,
+            startDelay: 1000,
+        });
+    }
 });
+
+// Navbar hide on scroll
+const navbar = document.getElementById('onScroll-hide');
+let lastScrollTop = 0;
+let isScrolling;
+
+function handleScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        navbar.style.transform = 'translateY(-100%)';
+    } else {
+        // Scrolling up
+        navbar.style.transform = 'translateY(0)';
+    }
+
+    lastScrollTop = scrollTop;
+
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {
+        navbar.style.transform = 'translateY(0)';
+    }, 300);
+}
+
+window.addEventListener('scroll', handleScroll);
+
+// Theme toggle
+const themeToggleBtn = document.getElementById('theme-toggle');
+const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+if (themeToggleBtn && themeToggleDarkIcon && themeToggleLightIcon) {
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        themeToggleLightIcon.classList.remove('hidden');
+    } else {
+        themeToggleDarkIcon.classList.remove('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+        // toggle icons inside button
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
+
+        // if set via local storage previously
+        if (localStorage.getItem('color-theme')) {
+            if (localStorage.getItem('color-theme') === 'light') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
+        } else {
+            // if NOT set via local storage previously
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    });
+}
+
+// Mobile menu toggle
+const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+        const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+        mobileMenuButton.setAttribute('aria-expanded', !expanded);
+        mobileMenu.classList.toggle('hidden');
+    });
+}

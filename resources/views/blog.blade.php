@@ -1,6 +1,6 @@
 <x-app-layout>
 
-        <section class=" lg:min-h-dvh min-h-dvh flex justify-center items-center martian-mono">
+        <section class=" lg:min-h-dvh flex justify-center mt-20 martian-mono">
             <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl md:mt-10 sm:mt-20"  data-aos="fade-up" data-aos-delay="50" data-aos-duration="800" data-aos-easing="ease-in-out">
                 <div class="max-w-full mx-auto flex justify-between">
                     <h2 class="text-2xl font-bold leading-tight text-black my-auto sm:text-2xl lg:text-3xl">Latest blog</h2>
@@ -21,44 +21,30 @@
                     </form>
 
                 </div>
-        
+                
                 <div class="grid max-w-md grid-cols-1 mx-auto mt-12 lg:max-w-full lg:mt-16 lg:grid-cols-3 gap-x-16 gap-y-12">
+                    @foreach ($blog as $blogs)
                     <div>
                         <a href="#" title="" class="block aspect-w-4 aspect-h-3">
-                            <img class="object-cover w-full h-full rounded-xl" src="{{ asset('asset/market-store.jpg') }}" alt="" />
+                            <img class="object-cover w-full h-52 rounded-lg" src="{{ asset('/storage/blog/'.$blogs->blog_image) }}" alt="{{ $blogs->blog_slug }}" />
                         </a>
                         <p class="mt-6 text-xl font-semibold">
-                            <a href="#" title="" class="text-black hover:underline"> How to mange your remote team? </a>
+                            <a href="#" title="" class="text-black hover:underline"> {{ $blogs->blog_title }}</a>
                         </p>
-                        <p class="mt-4 text-xs text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                        <div class="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                        <span class="block text-sm font-bold tracking-widest text-gray-500 uppercase"> Ferry Fernando . June 12, 2021 </span>
-                    </div>
-        
-                    <div>
-                        <a href="#" title="" class="block aspect-w-4 aspect-h-3">
-                            <img class="object-cover w-full h-full rounded-xl" src="https://cdn.rareblocks.xyz/collection/celebration/images/blog/1/blog-post-2.jpg" alt="" />
-                        </a>
-                        <p class="mt-6 text-xl font-semibold">
-                            <a href="#" title="" class="text-black hover:underline"> 6 Product launching emails you want to use on next campaign. </a>
+                        <p class="mt-4 text-xs text-gray-600">
+                            {{ Str::limit(strip_tags($blogs->blog_content), 50) }}
                         </p>
-                        <p class="mt-4 text-xs text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
                         <div class="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                        <span class="block text-sm font-bold tracking-widest text-gray-500 uppercase"> Ferry Fernando . June 12, 2021 </span>
-                    </div>
-        
-                    <div>
-                        <a href="#" title="" class="block aspect-w-4 aspect-h-3">
-                            <img class="object-cover w-full h-full rounded-xl" src="https://cdn.rareblocks.xyz/collection/celebration/images/blog/1/blog-post-3.jpg" alt="" />
-                        </a>
-                        <p class="mt-6 text-xl font-semibold">
-                            <a href="#" title="" class="text-black hover:underline"> Learn from the best: 7 email marketing ideas you can use </a>
+                        <p class="block text-sm font-bold tracking-widest text-gray-500 uppercase">
+                            {{ $blogs->user->name }} 
+                            <span> 
+                                {{ $blogs->created_at->diffForHumans() }}
+                            </span>
                         </p>
-                        <p class="mt-4 text-xs text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
-                        <div class="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                        <span class="block text-sm font-bold tracking-widest text-gray-500 uppercase"> Ferry Fernando . June 12, 2021 </span>
                     </div>
+                    @endforeach
                 </div>
+                
             </div>
         </section>
     

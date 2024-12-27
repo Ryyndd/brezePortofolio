@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Project;
 use App\Models\Techstack;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TechstackController extends Controller
 {
@@ -33,8 +37,55 @@ class TechstackController extends Controller
         {
 
             $techstack = Techstack::all();
+            $project = Project::latest()->take(3)->get();
+            $blog = Blog::latest()->take(3)->get();
 
-            return view('about', compact('techstack'));
+            
+            $achievements = [
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Web Development Certificate',
+                    'description' => 'Completed an intensive web development bootcamp',
+                    'source' => 'Codecademy'
+                ],
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Specialization',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Coursera'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Junior',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Dicoding'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Web Development Certificate',
+                    'description' => 'Completed an intensive web development bootcamp',
+                    'source' => 'Codecademy'
+                ],
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Specialization',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Coursera'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Junior',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Dicoding'
+                ],
+                // Add more achievements as needed
+            ];
+    
+
+            return view('about', compact('techstack', 'achievements', 'project', 'blog'));
 
         }
 
@@ -42,9 +93,55 @@ class TechstackController extends Controller
 
         {
 
-            $techstack = Techstack::all();
+            $techstack = Techstack::latest()->take(6)->get();
+            $project = Project::latest()->take(3)->get();
+            $blog = Blog::latest()->take(3)->get();
 
-            return view('home', compact('techstack'));
+            $achievements = [
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Web Development Certificate',
+                    'description' => 'Completed an intensive web development bootcamp',
+                    'source' => 'Codecademy'
+                ],
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Specialization',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Coursera'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Junior',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Dicoding'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Web Development Certificate',
+                    'description' => 'Completed an intensive web development bootcamp',
+                    'source' => 'Codecademy'
+                ],
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Specialization',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Coursera'
+                ],
+
+                [
+                    'image' => 'http://127.0.0.1:8000/storage/blog/new-article-1735200454.png',
+                    'title' => 'Machine Learning Junior',
+                    'description' => 'Completed a series of courses on machine learning',
+                    'source' => 'Dicoding'
+                ],
+                // Add more achievements as needed
+            ];
+    
+
+            return view('home', compact('techstack' , 'project', 'blog', 'achievements'));
 
         }
 
@@ -180,7 +277,9 @@ class TechstackController extends Controller
             $techstack->delete();
 
             // Redirect to index with success message
-            return redirect()->route('techstack.index')->with(['success' => 'Data Berhasil Dihapus!']);
+            Alert::success('Sucessfully!', 'Techstack deleted successfully');
+            return redirect()->route('techstack.index');
+            // return redirect()->route('techstack.index')->with(['success' => 'Data Berhasil Dihapus!']);
         }
 
 

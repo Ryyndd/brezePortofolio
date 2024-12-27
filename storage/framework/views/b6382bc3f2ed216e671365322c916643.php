@@ -84,12 +84,15 @@
 
                         </td>
                         <td class="px-2 py-4 ">
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="<?php echo e(route('techstack.destroy', $data->tech_slug)); ?>" method="POST">
-                                <a  href="<?php echo e(route('techstack.edit', $data->tech_slug)); ?>" type="button"  class="font-medium me-3 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            
+                            <form id="delete-form-<?php echo e($data->tech_slug); ?>" action="<?php echo e(route('techstack.destroy', $data->tech_slug)); ?>" method="POST" style="display: none;">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('DELETE'); ?>
-                                <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
                             </form>
+                            <a  href="<?php echo e(route('techstack.edit', $data->tech_slug)); ?>" type="button"  class="font-medium me-3 text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <button type="button" onclick="confirmDelete('<?php echo e($data->tech_slug); ?>')" class="font-medium text-red-600 dark:text-blue-500 hover:underline">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
